@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una carta para ti</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #100d10;
+            color: #eee5e7;
+            font-family: Georgia, serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 550px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #c87989;
+            font-weight: normal;
+            font-size: 30px;
+        }
+
+        .envelope {
+            margin: 40px auto 25px;
+            width: 230px;
+            height: 145px;
+            background: #873b4d;
+            border-radius: 5px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 38px;
+            box-shadow: 0 10px 35px #0008;
+        }
+
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-left: 115px solid transparent;
+            border-right: 115px solid transparent;
+            border-top: 85px solid #b45a6e;
+        }
+
+        button {
+            background: #a83d50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #c45a70;
+            transform: scale(1.05);
+        }
+
+        .letter {
+            display: none;
+            background: #eee5d9;
+            color: #292126;
+            padding: 35px;
+            margin-top: 30px;
+            border-radius: 4px;
+            text-align: left;
+            line-height: 1.8;
+            box-shadow: 0 10px 35px #0008;
+            animation: appear 1s ease;
+        }
+
+        .letter h2 {
+            text-align: center;
+            color: #873b4d;
+            font-weight: normal;
+        }
+
+        .signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Algo que quiero decirte...</h1>
+
+        <p>He preparado algo para ti.</p>
+
+        <div class="envelope">♡</div>
+
+        <button onclick="abrirCarta()">
+            Abrir carta
+        </button>
+
+        <div class="letter" id="carta">
+
+            <h2>Para alguien especial</h2>
+
+            <p>Hola...</p>
+
+            <p>
+                Aquí comienza tu carta.
+                Puedes escribir todo lo que quieras,
+                expresar tus sentimientos y contar
+                todas esas cosas que quizás no dices
+                normalmente.
+            </p>
+
+            <p>
+                Quiero que sepas que...
+            </p>
+
+            <p class="signature">
+                Con cariño,<br>
+                Tu nombre ♡
+            </p>
+
+        </div>
+
+    </div>
+
+    <script>
+        function abrirCarta() {
+            document.getElementById("carta").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
