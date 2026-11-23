@@ -4,110 +4,425 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Una carta para ti</title>
+    <title>A little place for us ♡</title>
 
     <style>
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            min-height: 100vh;
-            background: #100d10;
-            color: #eee5e7;
+            background: #eaf2fc;
+            color: #385675;
             font-family: Georgia, serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 25px;
-        }
-
-        .container {
-            text-align: center;
-            max-width: 550px;
-            width: 100%;
-        }
-
-        h1 {
-            color: #c87989;
-            font-weight: normal;
-            font-size: 30px;
-        }
-
-        .envelope {
-            margin: 40px auto 25px;
-            width: 230px;
-            height: 145px;
-            background: #873b4d;
-            border-radius: 5px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 38px;
-            box-shadow: 0 10px 35px #0008;
-        }
-
-        .envelope::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-left: 115px solid transparent;
-            border-right: 115px solid transparent;
-            border-top: 85px solid #b45a6e;
+            min-height: 100vh;
         }
 
         button {
-            background: #a83d50;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            font-size: 15px;
+            font-family: inherit;
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        button:hover {
-            background: #c45a70;
-            transform: scale(1.05);
+        /* FONDO */
+
+        .background {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, #ffffff, transparent 50%),
+                linear-gradient(135deg, #eaf2fc, #d8e8f8);
         }
 
-        .letter {
+        /* PANTALLA DE PIN */
+
+        #login {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255,255,255,0.85);
+            width: 100%;
+            max-width: 370px;
+            padding: 40px 30px;
+            border-radius: 22px;
+            text-align: center;
+            box-shadow: 0 12px 35px #7696b522;
+            border: 1px solid white;
+        }
+
+        .lock {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .login-card h1 {
+            font-size: 25px;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .login-card p {
+            color: #819bb5;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .pin-display {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .pin-dot {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #d8e5f3;
+            transition: 0.2s;
+        }
+
+        .pin-dot.active {
+            background: #628bb5;
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .key {
+            background: #edf4fc;
+            border: 1px solid #dce9f6;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 19px;
+            color: #42678d;
+            transition: 0.2s;
+        }
+
+        .key:hover {
+            background: #d8e9fa;
+            transform: translateY(-2px);
+        }
+
+        .login-message {
+            min-height: 22px;
+            font-size: 13px;
+            margin-top: 18px;
+            color: #648bb5;
+        }
+
+        /* ACCESO CONCEDIDO */
+
+        #success {
             display: none;
-            background: #eee5d9;
-            color: #292126;
-            padding: 35px;
-            margin-top: 30px;
-            border-radius: 4px;
-            text-align: left;
-            line-height: 1.8;
-            box-shadow: 0 10px 35px #0008;
+            position: fixed;
+            inset: 0;
+            background: #eaf2fc;
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .success-content {
             animation: appear 1s ease;
         }
 
-        .letter h2 {
-            text-align: center;
-            color: #873b4d;
+        .success-content h1 {
+            color: #527fa9;
+            font-size: 27px;
             font-weight: normal;
+            margin: 15px 0;
+        }
+
+        .success-content p {
+            color: #809bb7;
+        }
+
+        .check {
+            font-size: 55px;
+        }
+
+        /* CONTENIDO PRINCIPAL */
+
+        #main {
+            display: none;
+            min-height: 100vh;
+            padding: 35px 18px;
+        }
+
+        .page-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .header {
+            text-align: center;
+            margin: 25px 0 40px;
+        }
+
+        .header h1 {
+            font-size: 34px;
+            font-weight: normal;
+            color: #50799f;
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            color: #849db6;
+            font-size: 14px;
+        }
+
+        /* TARJETAS DEL MENU */
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 17px;
+        }
+
+        .menu-card {
+            background: rgba(255,255,255,0.9);
+            border: 1px solid white;
+            border-radius: 17px;
+            padding: 25px 15px;
+            text-align: center;
+            color: #52799f;
+            transition: 0.3s;
+            box-shadow: 0 6px 20px #7899b51a;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px #7899b533;
+        }
+
+        .menu-icon {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .menu-card h2 {
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .menu-card p {
+            font-size: 12px;
+            color: #91a6bc;
+            line-height: 1.6;
+        }
+
+        /* SECCIONES */
+
+        .section {
+            display: none;
+            background: rgba(255,255,255,0.9);
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 25px;
+            border: 1px solid white;
+            box-shadow: 0 8px 25px #7899b51a;
+            animation: appear 0.5s ease;
+        }
+
+        .section h2 {
+            color: #52799f;
+            font-size: 25px;
+            font-weight: normal;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            text-align: center;
+            color: #91a6bc;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .back-button {
+            background: #e6f0fa;
+            border: none;
+            color: #52799f;
+            padding: 10px 18px;
+            border-radius: 9px;
+            margin-bottom: 22px;
+        }
+
+        .back-button:hover {
+            background: #d6e7f8;
+        }
+
+        /* GALERIA */
+
+        .upload-button {
+            display: block;
+            width: fit-content;
+            margin: 0 auto 25px;
+            background: #7ea4cc;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .upload-button:hover {
+            background: #5f8bb9;
+        }
+
+        #photoInput {
+            display: none;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .photo-card {
+            background: #f0f5fb;
+            padding: 10px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .photo-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .photo-card p {
+            text-align: center;
+            font-size: 12px;
+            color: #7795b2;
+            padding: 8px 0 2px;
+        }
+
+        .empty-gallery {
+            text-align: center;
+            color: #9aafc3;
+            padding: 30px 10px;
+            grid-column: 1 / -1;
+            line-height: 1.8;
+        }
+
+        /* CARTA */
+
+        .letter-paper {
+            background: #f4f8fd;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #dce8f5;
+            line-height: 2;
+            color: #526e89;
+            font-size: 15px;
+        }
+
+        .letter-paper h3 {
+            text-align: center;
+            color: #6088b0;
+            font-size: 22px;
+            font-weight: normal;
+            margin-bottom: 25px;
+        }
+
+        .letter-paper p {
+            margin-bottom: 17px;
+            white-space: pre-wrap;
         }
 
         .signature {
             text-align: right;
-            margin-top: 30px;
             font-style: italic;
+            margin-top: 30px;
         }
+
+        /* MENSAJE Y MUSICA */
+
+        .message-box {
+            text-align: center;
+            padding: 15px;
+            line-height: 2;
+            color: #6684a1;
+            font-size: 15px;
+        }
+
+        .music-box {
+            background: #edf4fc;
+            border-radius: 15px;
+            padding: 18px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .music-box h3 {
+            font-weight: normal;
+            color: #52799f;
+            margin-bottom: 12px;
+        }
+
+        .spotify-frame {
+            width: 100%;
+            height: 152px;
+            border: none;
+            border-radius: 12px;
+        }
+
+        .music-placeholder {
+            color: #91a6bc;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* ANIMACIONES */
 
         @keyframes appear {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(15px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        /* CELULARES */
+
+        @media (max-width: 600px) {
+            .menu {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-card {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 27px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .letter-paper {
+                padding: 20px;
             }
         }
     </style>
@@ -115,50 +430,493 @@
 
 <body>
 
-    <div class="container">
+<div class="background">
 
-        <h1>Algo que quiero decirte...</h1>
+    <!-- 1. PANTALLA DE ACCESO -->
 
-        <p>He preparado algo para ti.</p>
+    <div id="login">
 
-        <div class="envelope">♡</div>
+        <div class="login-card">
 
-        <button onclick="abrirCarta()">
-            Abrir carta
-        </button>
+            <div class="lock">♡</div>
 
-        <div class="letter" id="carta">
+            <h1>Un pequeño secreto...</h1>
 
-            <h2>Para alguien especial</h2>
+            <p>Ingresa el código para continuar.</p>
 
-            <p>Hola...</p>
+            <div class="pin-display">
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+            </div>
 
-            <p>
-                Aquí comienza tu carta.
-                Puedes escribir todo lo que quieras,
-                expresar tus sentimientos y contar
-                todas esas cosas que quizás no dices
-                normalmente.
-            </p>
+            <div class="keypad">
+                <button class="key" onclick="addNumber('1')">1</button>
+                <button class="key" onclick="addNumber('2')">2</button>
+                <button class="key" onclick="addNumber('3')">3</button>
+                <button class="key" onclick="addNumber('4')">4</button>
+                <button class="key" onclick="addNumber('5')">5</button>
+                <button class="key" onclick="addNumber('6')">6</button>
+                <button class="key" onclick="addNumber('7')">7</button>
+                <button class="key" onclick="addNumber('8')">8</button>
+                <button class="key" onclick="addNumber('9')">9</button>
+                <button class="key" onclick="clearPin()">C</button>
+                <button class="key" onclick="addNumber('0')">0</button>
+                <button class="key" onclick="deleteNumber()">⌫</button>
+            </div>
 
-            <p>
-                Quiero que sepas que...
-            </p>
-
-            <p class="signature">
-                Con cariño,<br>
-                Tu nombre ♡
-            </p>
+            <div class="login-message" id="loginMessage">
+                Este lugar fue hecho especialmente para ti.
+            </div>
 
         </div>
 
     </div>
 
-    <script>
-        function abrirCarta() {
-            document.getElementById("carta").style.display = "block";
+
+    <!-- 2. ACCESO CONCEDIDO -->
+
+    <div id="success">
+
+        <div class="success-content">
+
+            <div class="check">♡</div>
+
+            <h1>ACCESO CONCEDIDO</h1>
+
+            <p>Bienvenido a este pequeño lugar especial.</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- 3. PAGINA PRINCIPAL -->
+
+    <main id="main">
+
+        <div class="page-container">
+
+            <header class="header">
+
+                <h1>A little place for us ♡</h1>
+
+                <p>
+                    Hay algunas cosas que quiero compartir contigo.
+                </p>
+
+            </header>
+
+
+            <!-- MENU -->
+
+            <div class="menu" id="menu">
+
+                <button class="menu-card" onclick="showSection('memories')">
+
+                    <div class="menu-icon">♡</div>
+
+                    <h2>Nuestros recuerdos</h2>
+
+                    <p>
+                        Fotografías y pequeños momentos
+                        que quiero conservar.
+                    </p>
+
+                </button>
+
+
+                <button class="menu-card" onclick="showSection('letter')">
+
+                    <div class="menu-icon">✉</div>
+
+                    <h2>Lo que quiero decirte</h2>
+
+                    <p>
+                        Algunas palabras que
+                        quiero dedicarte.
+                    </p>
+
+                </button>
+
+
+                <button class="menu-card" onclick="showSection('message')">
+
+                    <div class="menu-icon">♫</div>
+
+                    <h2>Un último mensaje</h2>
+
+                    <p>
+                        Un pequeño mensaje acompañado
+                        de una canción.
+                    </p>
+
+                </button>
+
+            </div>
+
+
+            <!-- SECCION 1: RECUERDOS -->
+
+            <section class="section" id="memories">
+
+                <button class="back-button" onclick="goBack()">
+                    ← Volver
+                </button>
+
+                <h2>Nuestros recuerdos ♡</h2>
+
+                <p class="section-description">
+                    Cada fotografía guarda un pequeño momento.
+                </p>
+
+                <label for="photoInput" class="upload-button">
+                    + Agregar fotografías
+                </label>
+
+                <input
+                    type="file"
+                    id="photoInput"
+                    accept="image/*"
+                    multiple
+                >
+
+                <div class="gallery" id="gallery">
+
+                    <div class="empty-gallery">
+                        Aquí aparecerán tus fotografías.<br>
+                        Selecciona algunas desde tu computadora ♡
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SECCION 2: CARTA -->
+
+            <section class="section" id="letter">
+
+                <button class="back-button" onclick="goBack()">
+                    ← Volver
+                </button>
+
+                <h2>Lo que quiero decirte ♡</h2>
+
+                <p class="section-description">
+                    Una carta escrita especialmente para ti.
+                </p>
+
+                <div class="letter-paper">
+
+                    <h3>Para alguien especial...</h3>
+
+                    <p>Hola...</p>
+
+                    <p>
+                        No sé muy bien cómo empezar esta carta,
+                        pero quería tomarme un momento para
+                        escribirte algunas cosas.
+                    </p>
+
+                    <p>
+                        [Aquí comienza tu carta.
+                        Escribe todo lo que quieras decirle.]
+                    </p>
+
+                    <p>
+                        Quiero que sepas que...
+                    </p>
+
+                    <p>
+                        [Continúa escribiendo tu mensaje.]
+                    </p>
+
+                    <p class="signature">
+                        Con cariño,<br>
+                        Nath ♡
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- SECCION 3: MENSAJE Y MUSICA -->
+
+            <section class="section" id="message">
+
+                <button class="back-button" onclick="goBack()">
+                    ← Volver
+                </button>
+
+                <h2>Un último mensaje ♡</h2>
+
+                <p class="section-description">
+                    Hay algo más que quiero compartir contigo.
+                </p>
+
+                <div class="message-box">
+
+                    <p>
+                        Si llegaste hasta aquí,
+                        quiero agradecerte por tomarte
+                        el tiempo de ver todo esto.
+                    </p>
+
+                    <p>
+                        [Escribe aquí tu mensaje especial.]
+                    </p>
+
+                    <p>
+                        Espero que esta pequeña sorpresa
+                        te haya sacado una sonrisa. ♡
+                    </p>
+
+                </div>
+
+
+                <div class="music-box">
+
+                    <h3>Una canción para ti ♡</h3>
+
+                    <!-- EL REPRODUCTOR APARECERA AQUI -->
+
+                    <div id="spotifyPlayer">
+
+                        <p class="music-placeholder">
+                            Aquí aparecerá nuestra canción.
+                            <br>
+                            Agrega el enlace de Spotify en el código.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <footer style="text-align:center; margin-top:40px;
+                color:#91a6bc; font-size:12px;">
+
+                Hecho con cariño ♡
+
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    // CONFIGURACION
+
+    const correctPin = "2906";
+
+    let enteredPin = "";
+
+
+    // SISTEMA DE PIN
+
+    function updateDots() {
+
+        const dots = document.querySelectorAll(".pin-dot");
+
+        dots.forEach((dot, index) => {
+
+            dot.classList.toggle(
+                "active",
+                index < enteredPin.length
+            );
+
+        });
+
+    }
+
+
+    function addNumber(number) {
+
+        if (enteredPin.length >= 4) return;
+
+        enteredPin += number;
+
+        updateDots();
+
+        if (enteredPin.length === 4) {
+            checkPin();
         }
-    </script>
+
+    }
+
+
+    function clearPin() {
+
+        enteredPin = "";
+
+        updateDots();
+
+        document.getElementById("loginMessage").textContent =
+            "Introduce tu código de acceso.";
+
+    }
+
+
+    function deleteNumber() {
+
+        enteredPin = enteredPin.slice(0, -1);
+
+        updateDots();
+
+    }
+
+
+    function checkPin() {
+
+        const message = document.getElementById("loginMessage");
+
+        if (enteredPin === correctPin) {
+
+            document.getElementById("login").style.display = "none";
+
+            document.getElementById("success").style.display = "flex";
+
+            setTimeout(() => {
+
+                document.getElementById("success").style.display = "none";
+
+                document.getElementById("main").style.display = "block";
+
+            }, 2200);
+
+        } else {
+
+            message.textContent = "Código incorrecto. Inténtalo otra vez.";
+
+            enteredPin = "";
+
+            updateDots();
+
+        }
+
+    }
+
+
+    // CAMBIO DE SECCIONES
+
+    function showSection(sectionName) {
+
+        document.getElementById("menu").style.display = "none";
+
+        document.querySelectorAll(".section").forEach(section => {
+
+            section.style.display = "none";
+
+        });
+
+        document.getElementById(sectionName).style.display = "block";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    function goBack() {
+
+        document.querySelectorAll(".section").forEach(section => {
+
+            section.style.display = "none";
+
+        });
+
+        document.getElementById("menu").style.display = "grid";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    // SUBIR FOTOGRAFIAS DESDE LA PC
+
+    const photoInput = document.getElementById("photoInput");
+
+    const gallery = document.getElementById("gallery");
+
+    photoInput.addEventListener("change", function() {
+
+        const files = Array.from(this.files);
+
+        if (gallery.querySelector(".empty-gallery")) {
+            gallery.innerHTML = "";
+        }
+
+        files.forEach(file => {
+
+            if (!file.type.startsWith("image/")) return;
+
+            const imageURL = URL.createObjectURL(file);
+
+            const card = document.createElement("div");
+
+            card.className = "photo-card";
+
+            const img = document.createElement("img");
+
+            img.src = imageURL;
+
+            img.alt = "Un recuerdo especial";
+
+            const description = document.createElement("p");
+
+            description.textContent = file.name;
+
+            card.appendChild(img);
+
+            card.appendChild(description);
+
+            gallery.appendChild(card);
+
+        });
+
+        this.value = "";
+
+    });
+
+
+    // SPOTIFY
+
+    // Cuando tengas tu canción, pega aquí su enlace Embed.
+    // Ejemplo: https://open.spotify.com/embed/track/ID_DE_LA_CANCION
+
+    const spotifyEmbed = "";
+
+    if (spotifyEmbed.trim() !== "") {
+
+        const player = document.createElement("iframe");
+
+        player.src = spotifyEmbed;
+
+        player.className = "spotify-frame";
+
+        player.allow =
+            "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+
+        player.loading = "lazy";
+
+        document.getElementById("spotifyPlayer").replaceChildren(player);
+
+    }
+
+</script>
 
 </body>
 </html>
